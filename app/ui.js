@@ -5,14 +5,24 @@ export function webixUI() {
         rows: [
             {
                 view: "toolbar", padding: 3, elements: [
-                    { view: "text", id: "search_field", placeholder: "Enter movie name..." },
-                    { view: "button", id: "search_button", value: "Search", width: 100, click: onSearchClick }
+                    { view: "label", id: "header", label: "Movie Database" },
                 ]
+            },
+            {
+                view: "toolbar", padding: 3, elements: [
+                    { view: "text", id: "search_field", placeholder: "Enter movie name...", value: "Harry Potter" },
+                    { view: "button", id: "search_button", value: "Search", width: 100, click: onSearchClick }
+                ],
+                on: {
+                    onViewInit: function() {
+                        onSearchClick();
+                    }
+                }
             },
             {
                 view: "scrollview", scroll: "y", body: {
                     view: "datatable", id: "movie_table", select: true, columns: [
-                        { id: "Poster", header: "Poster", fillspace: 1, template: obj => `<img src='${obj.Poster}' style='height:100px;'>` },
+                        { id: "Poster", header: "Poster", fillspace: 1, template: obj => `<img src='${obj.Poster}' style='height:50px;'>` },
                         { id: "Title", header: "Title", fillspace: 3, adjust: "data" },
                         { id: "Year", header: "Year", fillspace: 1 },
                         { id: "Type", header: "Type", fillspace: 1 }
