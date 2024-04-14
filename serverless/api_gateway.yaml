@@ -1,0 +1,38 @@
+openapi: 3.0.0
+info:
+  title: OMDB Gateway
+  version: 1.0.0
+
+servers:
+- url: https://d5dolrh5jbagv84msssd.apigw.yandexcloud.net
+x-yc-apigateway:
+  cors:
+    origin: '*'
+    methods: '*'
+    allowedHeaders: '*'
+  variables:
+    apikey:
+      default: string
+      description: "OMDB auth key"
+
+paths:
+  /:
+    get:
+      x-yc-apigateway-integration:
+        type: dummy
+        content:
+          '*': Hello, World!
+        http_code: 200
+        http_headers:
+          Content-Type: text/plain
+  /api:
+    get:
+      x-yc-apigateway-integration:
+        type: http
+        http_method: GET
+        url: 'https://www.omdbapi.com/?apikey=${var.apikey}'
+        query:
+          '*': '*'
+      responses:
+        '200':
+          description: 'Successful response'
